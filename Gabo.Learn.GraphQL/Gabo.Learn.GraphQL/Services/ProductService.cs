@@ -1,4 +1,5 @@
-﻿using Gabo.Learn.GraphQL.Interfaces;
+﻿using Gabo.Learn.GraphQL.DataAccess;
+using Gabo.Learn.GraphQL.Interfaces;
 using Gabo.Learn.GraphQL.Models;
 using System;
 using System.Collections.Generic;
@@ -10,36 +11,43 @@ namespace Gabo.Learn.GraphQL.Services
     public class ProductService : IProduct
     {
 
-        private static List<Product> products = new List<Product>()
+        private GraphQLDBContext _dbcontext;
+
+        public ProductService(GraphQLDBContext dbcontext)
         {
-            new Product(){ Id = 0, Name = "Coffe", Price = 10 },
-            new Product(){ Id = 1, Name = "Tea", Price = 15 },
-        };
+            _dbcontext = dbcontext;
+        }
 
         public Product AddProduct(Product product)
         {
-            products.Add(product);
+            _dbcontext.Products.Add(product);
+            _dbcontext.SaveChanges();
             return product;
         }
 
         public void DeleteProduct(int id)
         {
-            products.RemoveAt(id);
+            Product product = _dbcontext.Products.Find(id);
+            _dbcontext.Products.Remove(product);
+            _dbcontext.SaveChanges();
         }
 
         public List<Product> GetAllProducts()
         {
-            return products;
+            return _dbcontext.Products.ToList();
         }
 
         public Product GetProductById(int id)
         {
-            return products.Find(p => p.Id == id);
+            return _dbcontext.Products.Find(id);
         }
 
         public Product UpdateProduct(int id, Product product)
         {
-            products[id] = product;
+            Product prod = _dbcontext.Products.Find(id);
+            prod.Name = product.Name;
+            prod.Price = product.Price;
+            _dbcontext.SaveChanges();
             return product;
         }
     }
