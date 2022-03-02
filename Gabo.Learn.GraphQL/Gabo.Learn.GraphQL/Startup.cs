@@ -39,10 +39,6 @@ namespace Gabo.Learn.GraphQL
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Gabo.Learn.GraphQL", Version = "v1" });
-            });
 
             services.AddDbContext<GraphQLDBContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))    
