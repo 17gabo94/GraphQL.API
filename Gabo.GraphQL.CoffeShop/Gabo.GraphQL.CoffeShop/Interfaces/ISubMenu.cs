@@ -7,7 +7,7 @@ namespace Gabo.GraphQL.CoffeShop.Interfaces
     {
         List<SubMenu> GetSubMenus();
         List<SubMenu> GetSubMenus(int menuId);
-        SubMenu AddSubMenus(SubMenu newSubMenu);
+        SubMenu AddSubMenu(SubMenu newSubMenu);
         
     }
 }

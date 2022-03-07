@@ -13,7 +13,7 @@ namespace Gabo.GraphQL.CoffeShop.Services
         {
             _context = context;
         }
-        public SubMenu AddSubMenus(SubMenu newSubMenu)
+        public SubMenu AddSubMenu(SubMenu newSubMenu)
         {
             _context.SubMenus.Add(newSubMenu);
             _context.SaveChanges();

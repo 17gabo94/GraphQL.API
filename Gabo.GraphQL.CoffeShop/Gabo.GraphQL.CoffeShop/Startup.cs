@@ -1,4 +1,5 @@
 using Gabo.GraphQL.CoffeShop.Interfaces;
+using Gabo.GraphQL.CoffeShop.Mutations;
 using Gabo.GraphQL.CoffeShop.Query;
 using Gabo.GraphQL.CoffeShop.Schemas;
 using Gabo.GraphQL.CoffeShop.Services;
@@ -48,14 +49,27 @@ namespace Gabo.Learn.GraphQL
             services.AddTransient<ISubMenu, SubMenuService>();
             services.AddTransient<IReservation, ReservationService>();
             //Configuración de GraphQL
+            #region GraphQL Types
             services.AddTransient<MenuType>();
             services.AddTransient<SubMenuType>();
             services.AddTransient<ReservationType>();
+
+            services.AddTransient<MenuInputType>();
+            services.AddTransient<SubMenuInputType>();
+            services.AddTransient<ReservationInputType>();
+            #endregion
+            #region GraphQL Querys
             services.AddTransient<MenuQuery>();
             services.AddTransient<SubMenuQuery>();
             services.AddTransient<ReservationQuery>();
             services.AddTransient<RootQuery>();
-            //services.AddTransient<ProductMutation>();
+            #endregion
+            #region GraphQL Mutations
+            services.AddTransient<MenuMutation>();
+            services.AddTransient<SubMenuMutation>();
+            services.AddTransient<ReservationMutation>();
+            services.AddTransient<RootMutation>();
+            #endregion
             services.AddTransient<ISchema,RootSchema>();
 
             services.AddGraphQL(options =>

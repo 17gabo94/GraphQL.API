@@ -6,6 +6,6 @@
 	[Phone] VARCHAR(50) NOT NULL,
 	[TotalPeople] INT NOT NULL,
 	[Date] DateTime NOT NULL,
-	[Time] Timestamp NOT NULL,
+	[Time] varchar(max) NOT NULL,
 	CONSTRAINT [PK_RESERVATION_ID] PRIMARY KEY CLUSTERED ([Id])
 )

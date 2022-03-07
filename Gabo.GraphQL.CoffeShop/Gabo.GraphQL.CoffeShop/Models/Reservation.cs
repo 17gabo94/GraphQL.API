@@ -10,7 +10,7 @@ namespace Gabo.GraphQL.CoffeShop.Models
         public int TotalPeople { get; set; }
         public string Email { get; set; }
         public DateTime Date { get; set; }
-        public TimeSpan Time { get; set; }
+        public string Time { get; set; }
 
     }
 }
