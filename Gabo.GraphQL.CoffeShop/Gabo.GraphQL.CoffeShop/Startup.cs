@@ -1,10 +1,9 @@
+using Gabo.GraphQL.CoffeShop.Interfaces;
+using Gabo.GraphQL.CoffeShop.Query;
+using Gabo.GraphQL.CoffeShop.Schemas;
+using Gabo.GraphQL.CoffeShop.Services;
+using Gabo.GraphQL.CoffeShop.Type;
 using Gabo.Learn.GraphQL.DataAccess;
-using Gabo.Learn.GraphQL.Interfaces;
-using Gabo.Learn.GraphQL.Mutations;
-using Gabo.Learn.GraphQL.Query;
-using Gabo.Learn.GraphQL.Schemas;
-using Gabo.Learn.GraphQL.Services;
-using Gabo.Learn.GraphQL.Type;
 using GraphiQl;
 using GraphQL.Server;
 using GraphQL.Types;
@@ -40,17 +39,24 @@ namespace Gabo.Learn.GraphQL
 
             services.AddControllers();
 
-            services.AddDbContext<GraphQLDBContext>(options => 
+            services.AddDbContext<CoffeShopContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))    
             );
 
             //Esto se llama injeccion de dependencias y es un patron de diseño
-            services.AddTransient<IProduct, ProductService>();
+            services.AddTransient<IMenu, MenuService>();
+            services.AddTransient<ISubMenu, SubMenuService>();
+            services.AddTransient<IReservation, ReservationService>();
             //Configuración de GraphQL
-            services.AddTransient<ProductType>();
-            services.AddTransient<ProductQuery>();
-            services.AddTransient<ProductMutation>();
-            services.AddTransient<ISchema,ProductSchema>();
+            services.AddTransient<MenuType>();
+            services.AddTransient<SubMenuType>();
+            services.AddTransient<ReservationType>();
+            services.AddTransient<MenuQuery>();
+            services.AddTransient<SubMenuQuery>();
+            services.AddTransient<ReservationQuery>();
+            services.AddTransient<RootQuery>();
+            //services.AddTransient<ProductMutation>();
+            services.AddTransient<ISchema,RootSchema>();
 
             services.AddGraphQL(options =>
             {
@@ -60,7 +66,7 @@ namespace Gabo.Learn.GraphQL
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, GraphQLDBContext dbContext)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, CoffeShopContext dbContext)
         {
             if (env.IsDevelopment())
             {
